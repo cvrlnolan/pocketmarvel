@@ -17,7 +17,7 @@ import axios from "axios"
 import useSWR from "swr"
 import Navbar from "@/components/layout/navbar"
 
-export default function CharacterPage() {
+export default function SeriePage() {
 
     const router = useRouter()
 
@@ -25,7 +25,7 @@ export default function CharacterPage() {
 
     const fetcher = url => axios.get(url).then(res => res.data)
 
-    const { data: character, error } = useSWR(() => "/api/characters/" + id, fetcher)
+    const { data: serie, error } = useSWR(() => "/api/comics/" + id, fetcher)
 
     if (error) {
         return (
@@ -36,11 +36,11 @@ export default function CharacterPage() {
     }
 
 
-    if (!character) {
+    if (!serie) {
         return (
             <>
                 <Head>
-                    <title>PocketMarvel | Character</title>
+                    <title>PocketMarvel | Serie</title>
                 </Head>
                 <Navbar>
                     <Skeleton height="container.xl">
@@ -54,7 +54,7 @@ export default function CharacterPage() {
     return (
         <>
             <Head>
-                <title>PocketMarvel | {character.name}</title>
+                <title>PocketMarvel | {serie.title}</title>
             </Head>
             <Navbar>
                 <Container
@@ -65,16 +65,16 @@ export default function CharacterPage() {
                     boxShadow="lg"
                     centerContent
                 >
-                    <Stack align="center" spacing={10}>
+                    <Stack alignItems="center" spacing={10}>
                         <Heading as="h2" letterSpacing="tight">
-                            {character.name}
+                            {serie.title}
                         </Heading>
                         <Box
                             boxSize={["xs", "sm"]}
                             pos="relative"
                         >
                             <Image
-                                src={character.thumbnail.path + "." + character.thumbnail.extension}
+                                src={serie.thumbnail.path + "." + serie.thumbnail.extension}
                                 alt="chr_img"
                                 layout="fill"
                                 objectFit="cover"
@@ -82,13 +82,13 @@ export default function CharacterPage() {
                             />
                         </Box>
                         <Text color="gray.500">
-                            {character.description !== "" ? character.description : "No brief description available for this character. Check out the information links below."}
+                            {serie.description !== null ? serie.description : "No brief description available for this serie. Check out the information links below."}
                         </Text>
                         <SimpleGrid w="full" columns={[1, 2, 3]} spacing={10}>
                             <Stack color="gray.500">
                                 <Text fontWeight="bold">Info Links</Text>
                                 <List>
-                                    {character.urls.map((link) => (
+                                    {serie.urls.map((link) => (
                                         <ListItem key={link.url}>
                                             <Link
                                                 href={link.url}
@@ -100,9 +100,8 @@ export default function CharacterPage() {
                                                 isExternal
                                             >
                                                 {
-                                                    link.type === "detail" && "Biography" ||
-                                                    link.type === "wiki" && "Wiki" ||
-                                                    link.type === "comiclink" && "Comic Link"
+                                                    link.type === "detail" && "Serie Link" ||
+                                                    link.type === "wiki" && "Wiki"
                                                 }
                                             </Link>
                                         </ListItem>
@@ -110,22 +109,31 @@ export default function CharacterPage() {
                                 </List>
                             </Stack>
                             <Stack color="gray.500">
+                                <Text fontWeight="bold">Characters</Text>
+                                <List>
+                                    {serie.characters.items.map((character) => (
+                                        <ListItem key={character.resourceURI}>{character.name}</ListItem>
+                                    ))}
+                                    {serie.characters.items.length === 0 && "No character found for this series."}
+                                </List>
+                            </Stack>
+                            <Stack color="gray.500">
                                 <Text fontWeight="bold">Comics</Text>
                                 <List>
-                                    {character.comics.items.map((comic) => (
+                                    {serie.comics && serie.comics.items.map((comic) => (
                                         <ListItem key={comic.resourceURI}>{comic.name}</ListItem>
                                     ))}
                                 </List>
                             </Stack>
-                            <Stack color="gray.500">
-                                <Text fontWeight="bold">Series</Text>
-                                <List>
-                                    {character.series.items.map((serie) => (
-                                        <ListItem key={serie.resourceURI}>{serie.name}</ListItem>
-                                    ))}
-                                </List>
-                            </Stack>
                         </SimpleGrid>
+                        <Stack direction={["column", "row"]} spacing={2}>
+                            <Text fontWeight="bold" color="gray.500">Creators:</Text>
+                            <Text color="gray.500">
+                                {serie.creators.items.map((creator) => (
+                                    creator.name + "-" + creator.role + "," + " "
+                                ))}
+                            </Text>
+                        </Stack>
                     </Stack>
                 </Container>
             </Navbar>

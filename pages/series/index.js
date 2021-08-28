@@ -16,10 +16,10 @@ import {
 } from "@chakra-ui/react"
 import { SearchIcon } from "@chakra-ui/icons"
 import Navbar from "@/components/layout/navbar"
-import CharacterBox from "@/components/character/characterBox"
+import SerieBox from "@/components/serie/serieBox"
 import LoadingBox from "@/components/layout/loadingBox"
 
-export default function Characters() {
+export default function Series() {
 
     const [offset, setOffset] = useState(50)
 
@@ -39,15 +39,15 @@ export default function Characters() {
 
     const fetcher = url => axios.get(url).then(res => res.data)
 
-    const { data: characters, error } = useSWR("/api/characters/", fetcher, { revalidateOnFocus: false })
+    const { data: series, error } = useSWR("/api/series/", fetcher, { revalidateOnFocus: false })
 
     const loadMore = async () => {
         setLoading(true)
-        await axios.post("/api/characters/load_more", { offset }).then((response) => {
+        await axios.post("/api/series/load_more", { offset }).then((response) => {
             // console.log(response.data)
-            const moreCharacters = JSON.parse(JSON.stringify(response.data))
-            moreCharacters.forEach((character) => {
-                characters.push(character)
+            const moreSeries = JSON.parse(JSON.stringify(response.data))
+            moreSeries.forEach((serie) => {
+                series.push(serie)
             })
         }).catch((e) => {
             console.log(e)
@@ -66,7 +66,7 @@ export default function Characters() {
         )
     }
 
-    if (!characters) {
+    if (!series) {
         return (
             <>
                 <Navbar>
@@ -88,10 +88,10 @@ export default function Characters() {
         setValue(prevState => ({ ...prevState, [name]: value }))
     }
 
-    const search = async (name) => {
+    const search = async (title) => {
         setHide(false)
-        if (name !== "") {
-            const res = await axios.post("/api/characters/search", { name })
+        if (title !== "") {
+            const res = await axios.post("/api/series/search", { title })
             const result = await res.data
             // console.log(result)
             setResults(result)
@@ -109,7 +109,7 @@ export default function Characters() {
     return (
         <>
             <Head>
-                <title>PocketMarvel | Characters</title>
+                <title>PocketMarvel | Series</title>
             </Head>
             <Navbar>
                 <Container maxW="container.xl" centerContent>
@@ -123,7 +123,7 @@ export default function Characters() {
                                 <SearchIcon />
                             </InputLeftElement>
                             <Input
-                                placeholder="Marvel Character.."
+                                placeholder="Marvel Serie.."
                                 name="search"
                                 onChange={onChange}
                                 value={value.search}
@@ -146,15 +146,15 @@ export default function Characters() {
                         <>
                             <SimpleGrid columns={[2, 2, 3, 4]} spacing={10}>
                                 {results.map((result) => (
-                                    <CharacterBox key={result.id} character={result} />
+                                    <SerieBox key={result.id} serie={result} />
                                 ))}
                             </SimpleGrid>
                             <Divider my={3} />
                         </>
                     }
                     <SimpleGrid columns={[2, 2, 3, 4]} spacing={10}>
-                        {characters.map(character => (
-                            <CharacterBox key={character.id} character={character} />
+                        {series.map(serie => (
+                            <SerieBox key={serie.id} serie={serie} />
                         ))}
                     </SimpleGrid>
                     <Flex my={3}>

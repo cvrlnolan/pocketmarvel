@@ -17,6 +17,7 @@ import {
 import { SearchIcon } from "@chakra-ui/icons"
 import Navbar from "@/components/layout/navbar"
 import ComicBox from "@/components/comic/comicBox"
+import LoadingBox from "@/components/layout/loadingBox"
 
 export default function Comics() {
 
@@ -68,7 +69,15 @@ export default function Comics() {
     if (!comics) {
         return (
             <>
-                <div>Loading...</div>
+                <Navbar>
+                    <Container maxW="container.xl" centerContent>
+                        <SimpleGrid columns={[2, 2, 3, 4]} spacing={10}>
+                            {[...Array(50)].map((e, i) => (
+                                <LoadingBox key={i} />
+                            ))}
+                        </SimpleGrid>
+                    </Container>
+                </Navbar>
             </>
         )
     }

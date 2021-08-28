@@ -3,13 +3,12 @@ import {
     Flex,
     HStack,
     IconButton,
-    Button,
     useDisclosure,
     useColorModeValue,
     chakra,
     Stack,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons"
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons"
 import Link from "next/link"
 import ThemeButton from "@/components/themeButton"
 
@@ -17,7 +16,7 @@ const Links = [
     { key: "Characters", text: "Characters", href: "/characters" },
     { key: "Comics", text: "Comics", href: "/comics" },
     { key: "Series", text: "Series", href: "/series" },
-    { key: "Reposirtory", text: "Repository", href: "https://github.com/cvrlnolan/real_estate" }
+    { key: "Github", text: "Github", href: "https://github.com/cvrlnolan/pocketmarvel" }
 ];
 
 const NavLink = ({ children, linkHoverColor, linkRef }) => (
@@ -65,11 +64,6 @@ export default function Navbar({ children }) {
                         </HStack>
                     </HStack>
                     <Flex alignItems="center">
-                        {/* <Link href="/estate/add" passHref>
-                            <Button mr={2} leftIcon={<AddIcon />} variant="outline" size="sm">
-                                Add Estate
-                            </Button>
-                        </Link> */}
                         <ThemeButton />
                     </Flex>
                 </Flex>
