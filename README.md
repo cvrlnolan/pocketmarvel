@@ -35,9 +35,9 @@ This application was built reflecting the MVC architecture and the main dependen
 
 Other important services & dependency libraries of the application include:
 
-- [axios](): An http client to fetch urls and make api calls or requests within the application.
-- [swr](): To fetch and revalidate data on the client-side of the application while keeping the UI reactive.
-- [md5](): Message-digest-algorithm dependency to create a hash from a comibination of API credentials to perform requests to the [Marvel Comic API](https://developer.marvel.com/account)
+- [axios](https://www.npmjs.com/package/axios): An http client to fetch urls and make api calls or requests within the application.
+- [swr](https://swr.vercel.app/): To fetch and revalidate data on the client-side of the application while keeping the UI reactive.
+- [md5](https://www.npmjs.com/package/md5): Message-digest-algorithm dependency to create a hash from a comibination of API credentials to perform requests to the [Marvel Comic API](https://developer.marvel.com/account)
 
 ### Directives
 
