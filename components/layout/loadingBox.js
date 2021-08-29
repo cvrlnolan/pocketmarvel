@@ -1,12 +1,27 @@
 import {
-    Skeleton
+    Skeleton,
+    Box,
+    Center,
+    useColorModeValue
 } from "@chakra-ui/react"
 
 const LoadingBox = () => {
     return (
         <>
-            <Skeleton h="150px" w="250px" rounded="lg">
-            </Skeleton>
+            <Box
+                maxW="300px"
+                w="full"
+                rounded="lg"
+                overflow="hidden"
+                p={6}
+                bg={useColorModeValue("gray.100", "gray.800")}
+                alignItems="center"
+                pos="relative"
+            >
+                <Center>
+                    <Skeleton h="150px" w="100px" pos="relative" />
+                </Center>
+            </Box>
         </>
     )
 }
