@@ -49,11 +49,11 @@ export default function Comics() {
             moreComics.forEach((comic) => {
                 comics.push(comic)
             })
+            setOffset(offset + 50)
         }).catch((e) => {
             console.log(e)
             setLoading(false)
         }).finally(() => {
-            setOffset(offset + 50)
             setLoading(false)
         })
     }

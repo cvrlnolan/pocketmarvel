@@ -49,11 +49,11 @@ export default function Characters() {
             moreCharacters.forEach((character) => {
                 characters.push(character)
             })
+            setOffset(offset + 50)
         }).catch((e) => {
             console.log(e)
             setLoading(false)
         }).finally(() => {
-            setOffset(offset + 50)
             setLoading(false)
         })
     }

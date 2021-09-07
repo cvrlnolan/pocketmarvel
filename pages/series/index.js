@@ -49,11 +49,11 @@ export default function Series() {
             moreSeries.forEach((serie) => {
                 series.push(serie)
             })
+            setOffset(offset + 50)
         }).catch((e) => {
             console.log(e)
             setLoading(false)
         }).finally(() => {
-            setOffset(offset + 50)
             setLoading(false)
         })
     }
