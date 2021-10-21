@@ -82,7 +82,7 @@ export default function CharacterPage() {
                                 className="page_image"
                             />
                         </Box>
-                        <Text color="gray.500">
+                        <Text color="gray.500" w="full">
                             {character.description !== "" ? character.description : "No brief description available for this character. Check out the information links below."}
                         </Text>
                         <SimpleGrid w="full" columns={[1, 2, 3]} spacing={10}>

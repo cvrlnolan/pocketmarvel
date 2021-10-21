@@ -82,7 +82,7 @@ export default function SeriePage() {
                                 className="page_image"
                             />
                         </Box>
-                        <Text color="gray.500">
+                        <Text color="gray.500" w="full">
                             {serie.description !== null ? serie.description : "No brief description available for this serie. Check out the information links below."}
                         </Text>
                         <SimpleGrid w="full" columns={[1, 2, 3]} spacing={10}>

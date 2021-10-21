@@ -98,7 +98,7 @@ export default function ComicPage() {
                             </Text>
                         ))}
                         {comic.textObjects.length === 0 &&
-                            <Text color="gray.500">
+                            <Text color="gray.500" w="full">
                                 No brief description available for this comic. Check out the information links below.
                             </Text>
                         }
